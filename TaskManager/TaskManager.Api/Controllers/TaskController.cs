@@ -26,5 +26,18 @@ namespace TaskManager.Api.Controllers
             tasks.Add(newTask);
             return CreatedAtAction(nameof(GetAllTasks), new { id = newTask.Id }, newTask);
         }
+
+        // GET: /Api/Task/{id}
+        [HttpGet("{id}")]
+
+        public ActionResult<Taskk> GetTaskById(int id)
+        {
+            var task = tasks.Find(t => t.Id == id);
+            if (task == null)
+            {
+                return NotFound($"Task with ID {id} was not found.");
+            }
+            return Ok(task);
+        }
     }
 }
