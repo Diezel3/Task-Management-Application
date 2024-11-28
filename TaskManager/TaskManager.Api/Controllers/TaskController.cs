@@ -39,5 +39,22 @@ namespace TaskManager.Api.Controllers
             }
             return Ok(task);
         }
+
+        // PUT: /Api/Task/{id}
+        [HttpPut("{id}")]
+        public ActionResult<Taskk> UpdateTask(int id, Taskk updatedTask)
+        {
+            var existingTask = tasks.Find(t => t.Id == id);
+            if (existingTask == null)
+            {
+                return NotFound($"The task with Id {id} was not found.");
+            }
+            existingTask.Title = updatedTask.Title;
+            existingTask.Description = updatedTask.Description;
+            existingTask.IsComplete = updatedTask.IsComplete;
+            // existingTask.DueDate = updatedTask.DueDate;
+
+            return NoContent();
+        }
     }
 }
