@@ -56,5 +56,18 @@ namespace TaskManager.Api.Controllers
 
             return NoContent();
         }
+
+        // DELETE: /Api/Task/{id}
+        [HttpDelete("{id}")]
+        public ActionResult<Taskk> DeleteTask(int id)
+        {
+            var existingTask = tasks.Find(t=> t.Id == id);
+            if (existingTask == null)
+            {
+                return NotFound($"The task with Id {id} was not found.");
+            }
+                tasks.Remove(existingTask);
+                return NoContent();
+        }
     }
 }
