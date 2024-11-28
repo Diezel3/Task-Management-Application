@@ -18,5 +18,13 @@ namespace TaskManager.Api.Controllers
         {
             return Ok(tasks);
         }
+
+        // POST: /Api/Task
+        [HttpPost]
+        public ActionResult<Taskk> CreateTask(Taskk newTask)
+        {
+            tasks.Add(newTask);
+            return CreatedAtAction(nameof(GetAllTasks), new { id = newTask.Id }, newTask);
+        }
     }
 }
