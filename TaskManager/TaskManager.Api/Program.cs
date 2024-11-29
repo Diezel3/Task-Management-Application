@@ -1,25 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using TaskManager.Api.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite("Data Source=TaskManager.db"));
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Migrate database changes at runtime
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.Migrate();
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
 
 app.Run();
