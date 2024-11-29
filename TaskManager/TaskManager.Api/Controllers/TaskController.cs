@@ -45,9 +45,9 @@ namespace TaskManager.Api.Controllers
 
         // PUT: /Api/Task/{id}
         [HttpPut("{id}")]
-        public ActionResult<Taskk> UpdateTask(int id, Taskk updatedTask)
+        public async Task<ActionResult<Taskk>> UpdateTask(int id, [FromBody]Taskk updatedTask, [FromServices] AppDbContext dbContext)
         {
-            var existingTask = tasks.Find(t => t.Id == id);
+            var existingTask = await dbContext.Tasks.FindAsync(id);
             if (existingTask == null)
             {
                 return NotFound($"The task with Id {id} was not found.");
@@ -55,21 +55,24 @@ namespace TaskManager.Api.Controllers
             existingTask.Title = updatedTask.Title;
             existingTask.Description = updatedTask.Description;
             existingTask.IsComplete = updatedTask.IsComplete;
-            // existingTask.DueDate = updatedTask.DueDate;
+            
+            await dbContext.SaveChangesAsync();
 
             return NoContent();
         }
 
         // DELETE: /Api/Task/{id}
         [HttpDelete("{id}")]
-        public ActionResult<Taskk> DeleteTask(int id)
+        public async Task<ActionResult<Taskk>> DeleteTask(int id, [FromServices] AppDbContext dbContext)
         {
-            var existingTask = tasks.Find(t=> t.Id == id);
+            var existingTask = await dbContext.Tasks.FindAsync(id);
             if (existingTask == null)
             {
                 return NotFound($"The task with Id {id} was not found.");
             }
-                tasks.Remove(existingTask);
+                dbContext.Tasks.Remove(existingTask);
+                await dbContext.SaveChangesAsync();
+                
                 return NoContent();
         }
     }
