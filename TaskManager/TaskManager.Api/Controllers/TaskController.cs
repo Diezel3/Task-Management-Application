@@ -23,9 +23,10 @@ namespace TaskManager.Api.Controllers
 
         // POST: /Api/Task
         [HttpPost]
-        public ActionResult<Taskk> CreateTask(Taskk newTask)
+        public async Task<ActionResult<Taskk>> CreateTask([FromBody]Taskk newTask, [FromServices] AppDbContext dbContext)
         {
-            tasks.Add(newTask);
+            await dbContext.Tasks.AddAsync(newTask);
+            await dbContext.SaveChangesAsync();
             return CreatedAtAction(nameof(GetAllTasks), new { id = newTask.Id }, newTask);
         }
 
