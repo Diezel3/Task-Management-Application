@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using TaskManager.Api.Data;
 using TaskManager.Api.Model;
 
 
@@ -14,9 +16,9 @@ namespace TaskManager.Api.Controllers
 
         // GET: /Api/Task
         [HttpGet]
-        public ActionResult<IEnumerable<Taskk>> GetAllTasks()
+        public async Task<ActionResult<IEnumerable<Taskk>>> GetAllTasks([FromServices] AppDbContext dbContext)
         {
-            return Ok(tasks);
+            return Ok(await dbContext.Tasks.ToListAsync());
         }
 
         // POST: /Api/Task
