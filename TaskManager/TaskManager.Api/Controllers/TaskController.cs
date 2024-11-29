@@ -32,9 +32,9 @@ namespace TaskManager.Api.Controllers
         // GET: /Api/Task/{id}
         [HttpGet("{id}")]
 
-        public ActionResult<Taskk> GetTaskById(int id)
+        public async Task<ActionResult<Taskk>> GetTaskById(int id, [FromServices] AppDbContext dbContext)
         {
-            var task = tasks.Find(t => t.Id == id);
+            var task = await dbContext.Tasks.FindAsync(id);
             if (task == null)
             {
                 return NotFound($"Task with ID {id} was not found.");
