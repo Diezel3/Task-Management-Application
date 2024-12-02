@@ -25,6 +25,11 @@ namespace TaskManager.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Taskk>> CreateTask([FromBody]Taskk newTask, [FromServices] AppDbContext dbContext)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
             await dbContext.Tasks.AddAsync(newTask);
             await dbContext.SaveChangesAsync();
             return CreatedAtAction(nameof(GetAllTasks), new { id = newTask.Id }, newTask);
@@ -47,6 +52,11 @@ namespace TaskManager.Api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<Taskk>> UpdateTask(int id, [FromBody]Taskk updatedTask, [FromServices] AppDbContext dbContext)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var existingTask = await dbContext.Tasks.FindAsync(id);
             if (existingTask == null)
             {
@@ -72,7 +82,7 @@ namespace TaskManager.Api.Controllers
             }
                 dbContext.Tasks.Remove(existingTask);
                 await dbContext.SaveChangesAsync();
-                
+
                 return NoContent();
         }
     }
