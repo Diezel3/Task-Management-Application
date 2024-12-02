@@ -23,6 +23,7 @@ using (var scope = app.Services.CreateScope())
 
 app.UseDeveloperExceptionPage();
 app.MapControllers();
+app.UseMiddleware<TaskManager.Api.Middleware.ExceptionMiddleware>();
 app.Run();
 
 
