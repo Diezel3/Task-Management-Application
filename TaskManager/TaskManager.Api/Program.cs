@@ -3,6 +3,15 @@ using TaskManager.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy => policy.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+});
+
 builder.Services.AddControllers();
 
 // Add services to the container
@@ -20,6 +29,8 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.Migrate();
 }
 
+// Enable CORS
+app.UseCors("AllowFrontend");
 
 app.UseDeveloperExceptionPage();
 app.MapControllers();
