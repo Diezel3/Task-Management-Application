@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import api from './api/api'; // Import the Axios instance
 
 const TaskForm = () => {
   const [title, setTitle] = useState('');
@@ -6,9 +7,15 @@ const TaskForm = () => {
   const [dueDate, setDueDate] = useState('');
   const [isComplete, setIsComplete] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // To prevent the page from refreshing
-    console.log({ title, description, dueDate, isComplete }); // To Log the form data
+    try {
+        const newTask = { title, description, dueDate, isComplete };
+        const response = await api.post('/task', newTask); // Send to backend
+        console.log('Task created:', response.data); // Log the created task
+      } catch (error) {
+        console.error('Error creating task:', error);
+      }
   };
 
   return (
