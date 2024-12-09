@@ -1,21 +1,21 @@
-import TaskList from "./components/TaskList";
+import React, { useState } from 'react';
 import TaskForm from './TaskForm';
-
-// function App() {
-//   return (
-//       <div>
-//           <h1>Task Manager</h1>
-//           <TaskList />
-//       </div>
-//   );
-// }
-
+import TaskList from './TaskList';
 
 const App = () => {
+  const [tasks, setTasks] = useState([]); // State to manage tasks
+
+  // Handles new task creation
+  const handleTaskCreated = (newTask) => {
+    setTasks((prevTasks) => [...prevTasks, newTask]); // Add new task to the list
+  };
+
   return (
     <div>
       <h1>Task Manager</h1>
-      <TaskForm />
+      {/* Pass handleTaskCreated to TaskForm */}
+      <TaskForm onTaskCreated={handleTaskCreated} />
+      <TaskList tasks={tasks} /> {/* Display the tasks */}
     </div>
   );
 };
