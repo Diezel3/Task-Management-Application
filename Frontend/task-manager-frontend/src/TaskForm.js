@@ -7,7 +7,7 @@ const TaskForm = ({ onTaskCreated, taskToEdit, onTaskUpdated }) => {
   const [dueDate, setDueDate] = useState('');
   const [isComplete, setIsComplete] = useState(false);
 
-  // Update form fields when taskToEdit changes
+  // Update form fields when taskToEdit changes or is set
   useEffect(() => {
     if (taskToEdit) {
       setTitle(taskToEdit.title || '');
