@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import api from './api/api'; // Import the Axios instance
 
-const TaskForm = () => {
+const TaskForm = ({ onTaskCreated }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
@@ -12,7 +12,16 @@ const TaskForm = () => {
     try {
         const newTask = { title, description, dueDate, isComplete };
         const response = await api.post('/task', newTask); // Send to backend
-        console.log('Task created:', response.data); // Log the created task
+        
+        if (onTaskCreated) {
+            onTaskCreated(response.data); // Inform the parent (App.js) about the new task
+          }
+    
+          // Clear the form fields after submission
+          setTitle('');
+          setDescription('');
+          setDueDate('');
+          setIsComplete(false);
       } catch (error) {
         console.error('Error creating task:', error);
       }

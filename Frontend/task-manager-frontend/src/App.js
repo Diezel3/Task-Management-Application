@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import TaskForm from './TaskForm';
-import TaskList from './TaskList';
+import TaskList from './components/TaskList';
 
 const App = () => {
   const [tasks, setTasks] = useState([]); // State to manage tasks
