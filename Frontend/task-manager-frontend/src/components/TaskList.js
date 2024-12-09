@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api/api';
 
-function TaskList() {
-    const [tasks, setTasks] = useState([]);
+    function TaskList({ onEdit }) { // 'onEdit' prop to handle editing
+        const [tasks, setTasks] = useState([]);
 
     // Fetch tasks from the backend
     useEffect(() => {
@@ -30,6 +30,7 @@ function TaskList() {
                             <h3>{task.title}</h3>
                             <p>{task.description}</p>
                             <p>Status: {task.isComplete ? 'Complete' : 'Incomplete'}</p>
+                            <button onClick={() => onEdit(task)}>Edit</button>
                         </li>
                     ))}
                 </ul>
