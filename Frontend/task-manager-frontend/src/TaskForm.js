@@ -1,44 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import api from './api/api'; // Import the Axios instance
 
-
 const TaskForm = ({ onTaskCreated, taskToEdit, onTaskUpdated }) => {
-  // taskToEdit is used to pre-fill the form when editing
-  const [title, setTitle] = useState(taskToEdit ? taskToEdit.title : '');
-  const [description, setDescription] = useState(taskToEdit ? taskToEdit.description : '');
-  const [dueDate, setDueDate] = useState(taskToEdit ? taskToEdit.dueDate : '');
-  const [isComplete, setIsComplete] = useState(taskToEdit ? taskToEdit.isComplete : false);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [dueDate, setDueDate] = useState('');
+  const [isComplete, setIsComplete] = useState(false);
 
+  // Update form fields when taskToEdit changes
   useEffect(() => {
     if (taskToEdit) {
-      setTitle(taskToEdit.title);
-      setDescription(taskToEdit.description);
-      setDueDate(taskToEdit.dueDate);
-      setIsComplete(taskToEdit.isComplete);
+      setTitle(taskToEdit.title || '');
+      setDescription(taskToEdit.description || '');
+      setDueDate(taskToEdit.dueDate || '');
+      setIsComplete(taskToEdit.isComplete || false);
+    } else {
+      setTitle('');
+      setDescription('');
+      setDueDate('');
+      setIsComplete(false);
     }
   }, [taskToEdit]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // To prevent the page from refreshing
+    e.preventDefault();
     try {
-        if (taskToEdit) {
-            // Update an existing task
-            const updatedTask = { ...taskToEdit, title, description, dueDate, isComplete };
-            const response = await api.put(`/task/${taskToEdit.id}`, updatedTask);
-            onTaskUpdated(response.data); // Inform the parent (App.js) about the updated task
-        } else {
-            // Create a new task
-            const newTask = { title, description, dueDate, isComplete };
-            const response = await api.post('/task', newTask); // Send to backend
-            onTaskCreated(response.data); // Inform the parent (App.js) about the new task
-        }
-        setTitle('');
-        setDescription('');
-        setDueDate('');
-        setIsComplete(false);
-        } 
-    catch (error) {
-    console.error('Error submitting task:', error);
+      if (taskToEdit) {
+        // Update an existing task
+        const updatedTask = { ...taskToEdit, title, description, dueDate, isComplete };
+        const response = await api.put(`/task/${taskToEdit.id}`, updatedTask);
+        onTaskUpdated(response.data); // Notify parent of the updated task
+      } else {
+        // Create a new task
+        const newTask = { title, description, dueDate, isComplete };
+        const response = await api.post('/task', newTask);
+        onTaskCreated(response.data); // Notify parent of the new task
+      }
+    } catch (error) {
+      console.error('Error submitting task:', error);
+    } finally {
+      // Reset form fields after submission
+      setTitle('');
+      setDescription('');
+      setDueDate('');
+      setIsComplete(false);
     }
   };
 
@@ -49,7 +54,7 @@ const TaskForm = ({ onTaskCreated, taskToEdit, onTaskUpdated }) => {
         <input
           type="text"
           value={title}
-          onChange={(e) => setTitle(e.target.value)} // Update state as user types
+          onChange={(e) => setTitle(e.target.value)}
           required
         />
       </div>
