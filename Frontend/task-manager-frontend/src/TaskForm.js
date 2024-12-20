@@ -1,3 +1,5 @@
+// Code for the TaskForm component. This component is used to create and update tasks. It receives the onTaskCreated and onTaskUpdated props from the parent component. It contains a form with input fields for title, description, due date, and a checkbox for the status. It also contains a submit button that creates a new task or updates an existing task. The form fields are updated when the taskToEdit prop changes or is set. The form is reset after submission.
+// Basically Handling the Form for the Task Manager
 import React, { useState, useEffect } from 'react';
 import api from './api/api'; // Import the Axios instance
 

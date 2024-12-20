@@ -1,3 +1,5 @@
+// Code to manage the task manager frontend. It fetches tasks from the backend, handles task editing, updates, creation, and deletion. It also renders the TaskForm and TaskList components.
+// Basically Handling the active state of the Task Manager
 import React, { useState, useEffect } from 'react';
 import TaskForm from './TaskForm';
 import TaskList from './components/TaskList';
@@ -39,6 +41,19 @@ const App = () => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };
 
+  // Handles task deletion
+  const handleTaskDeleted = async (taskId) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this task?'); // Confirm before deleting
+    if (!confirmDelete) return;
+
+    try {
+      await api.delete(`/task/${taskId}`); // API call to delete the task
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId)); // Update state
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
+  };
+
   return (
     <div>
       <h1>Task Manager</h1>
@@ -47,7 +62,7 @@ const App = () => {
         taskToEdit={taskToEdit} // Pass the task to edit
         onTaskUpdated={handleTaskUpdated} // Handle task updates
       />
-      <TaskList tasks={tasks} onEdit={handleEditTask} />
+      <TaskList tasks={tasks} onEdit={handleEditTask} onDelete={handleTaskDeleted}/>
     </div>
   );
 };
