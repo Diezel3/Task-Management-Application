@@ -15,8 +15,8 @@ function TaskList({ tasks, onEdit, onDelete }) {
               <h3>{task.title}</h3>
               <p>{task.description}</p>
               <p>Status: {task.isComplete ? 'Complete' : 'Incomplete'}</p>
-              <button onClick={() => onEdit(task)}>Edit</button>
-              <button onClick={() => onDelete(task.id)}>Delete</button>
+              <button onClick={() => onEdit(task)}>Edit</button> // the onEdit function is called when the Edit button is clicked
+              <button onClick={() => onDelete(task.id)}>Delete</button> // the onDelete function is called with the task ID when the Delete button is clicked
             </li>
           ))}
         </ul>

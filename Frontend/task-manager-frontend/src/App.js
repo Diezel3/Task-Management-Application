@@ -23,9 +23,9 @@ const App = () => {
     fetchTasks();
   }, []);
 
-  // Handles task editing
+  // This doesn't necessarily edit the task, but it sets the task ready to be edited and the logic is handled in the TaskForm component
   const handleEditTask = (task) => {
-    setTaskToEdit(task); // Set the selected task for editing
+    setTaskToEdit(task); // Set the selected task for editing by being an object of each task and passing it to the TaskForm component through the taskToEdit prop above
   };
 
   // Handles task updates
