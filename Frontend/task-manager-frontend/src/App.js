@@ -62,7 +62,11 @@ const App = () => {
         taskToEdit={taskToEdit} // Pass the task to edit
         onTaskUpdated={handleTaskUpdated} // Handle task updates
       />
-      <TaskList tasks={tasks} onEdit={handleEditTask} onDelete={handleTaskDeleted}/>
+      <TaskList 
+        tasks={tasks} 
+        onEdit={handleEditTask} 
+        onDelete={handleTaskDeleted}
+      />
     </div>
   );
 };
