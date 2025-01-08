@@ -64,6 +64,7 @@ namespace TaskManager.Api.Controllers
             }
             existingTask.Title = updatedTask.Title;
             existingTask.Description = updatedTask.Description;
+            existingTask.DueDate = updatedTask.DueDate;
             existingTask.IsComplete = updatedTask.IsComplete;
             
             await dbContext.SaveChangesAsync();

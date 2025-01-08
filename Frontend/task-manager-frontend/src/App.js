@@ -26,6 +26,8 @@ const App = () => {
 
   // This doesn't necessarily edit the task, but it sets the task ready to be edited and the logic is handled in the TaskForm component
   const handleEditTask = (task) => {
+    const confirmEdit = window.confirm(`Are you sure you want to edit this (${task.title}) task?`); // Confirm before editing
+    if (!confirmEdit) return;
     setTaskToEdit(task); // Set the selected task for editing by being an object of each task and passing it to the TaskForm component through the taskToEdit prop above
   };
 
@@ -43,8 +45,8 @@ const App = () => {
   };
 
   // Handles task deletion
-  const handleTaskDeleted = async (taskId) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this task?'); // Confirm before deleting
+  const handleTaskDeleted = async (taskId, taskDescription) => {
+    const confirmDelete = window.confirm(`Are you sure you want to delete this (${taskDescription}) task?`); // Confirm before deleting
     if (!confirmDelete) return;
 
     try {

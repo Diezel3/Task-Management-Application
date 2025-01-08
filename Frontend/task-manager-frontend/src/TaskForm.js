@@ -32,8 +32,18 @@ const TaskForm = ({ onTaskCreated, taskToEdit, onTaskUpdated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent browser from refreshing the page
 
-    if (!title.trim()) {
-    alert("Task title is required!");
+    if (!title.trim() || title.trim().length > 30) {
+    alert("Task title is required and cannot exceed 30 characters!");
+    return;
+    }
+
+    if (description.trim().length > 500) {
+    alert("Description cannot exceed 500 characters!");
+    return;
+    }
+
+    if (dueDate && new Date(dueDate) < new Date()) {
+    alert("Due date must be in the future!");
     return;
     }
 
