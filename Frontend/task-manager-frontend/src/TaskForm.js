@@ -31,6 +31,12 @@ const TaskForm = ({ onTaskCreated, taskToEdit, onTaskUpdated }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent browser from refreshing the page
+
+    // if (!taskToEdit.title.trim()) {
+    // alert("Task title is required!");
+    // return;
+    // }
+
     try {
       if (taskToEdit) {
         // Update an existing task
@@ -45,6 +51,8 @@ const TaskForm = ({ onTaskCreated, taskToEdit, onTaskUpdated }) => {
       }
     } catch (error) {
       console.error('Error submitting task:', error);
+      alert("Failed to create task. Please try again.");
+
     } finally {
       // Reset form fields after submission
       setTitle('');
