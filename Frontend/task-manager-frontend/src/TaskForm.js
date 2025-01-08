@@ -32,10 +32,10 @@ const TaskForm = ({ onTaskCreated, taskToEdit, onTaskUpdated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent browser from refreshing the page
 
-    // if (!taskToEdit.title.trim()) {
-    // alert("Task title is required!");
-    // return;
-    // }
+    if (!title.trim()) {
+    alert("Task title is required!");
+    return;
+    }
 
     try {
       if (taskToEdit) {
@@ -70,7 +70,7 @@ const TaskForm = ({ onTaskCreated, taskToEdit, onTaskUpdated }) => {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          required
+          // required
         />
       </div>
 

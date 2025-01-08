@@ -17,6 +17,7 @@ const App = () => {
         setTasks(response.data); // Set tasks fetched from the backend
       } catch (error) {
         console.error('Error fetching tasks:', error);
+        alert("Failed to load tasks. Please try again.");
       }
     }
 
