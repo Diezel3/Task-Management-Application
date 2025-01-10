@@ -45,8 +45,8 @@ const App = () => {
   };
 
   // Handles task deletion
-  const handleTaskDeleted = async (taskId, taskDescription) => {
-    const confirmDelete = window.confirm(`Are you sure you want to delete this (${taskDescription}) task?`); // Confirm before deleting
+  const handleTaskDeleted = async (taskId, taskTitle) => {
+    const confirmDelete = window.confirm(`Are you sure you want to delete this (${taskTitle}) task?`); // Confirm before deleting
     if (!confirmDelete) return;
 
     try {
