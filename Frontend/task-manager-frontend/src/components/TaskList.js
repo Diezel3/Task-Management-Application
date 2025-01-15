@@ -19,7 +19,7 @@ function TaskList({ tasks, onEdit, onDelete }) {
               <p>Due Date: {task.dueDate}</p>
               <p>Status: {task.isComplete ? 'Complete' : 'Incomplete'}</p>
               <button onClick={() => onEdit(task)}>Edit</button> 
-              <button onClick={() => onDelete(task.id, task.title)}>Delete</button>
+              <button onClick={() => onDelete(task.id, task.title)} className='delete'>Delete</button>
             </li>
           ))}
         </ul>

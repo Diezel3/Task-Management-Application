@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import TaskForm from './TaskForm';
 import TaskList from './components/TaskList';
 import api from './api/api';
+import './styles.css';
 
 const App = () => {
   const [tasks, setTasks] = useState([]); // State to manage tasks
@@ -59,7 +60,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className='container'>
       <h1>Task Manager</h1>
       <TaskForm
         onTaskCreated={handleTaskCreated} // Handle task creation
