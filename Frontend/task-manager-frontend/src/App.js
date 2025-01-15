@@ -49,6 +49,7 @@ const App = () => {
     const confirmDelete = window.confirm(`Are you sure you want to delete this (${taskTitle}) task?`); // Confirm before deleting
     if (!confirmDelete) return;
 
+    
     try {
       await api.delete(`/task/${taskId}`); // API call to delete the task
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId)); // Update state
