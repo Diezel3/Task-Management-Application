@@ -60,18 +60,22 @@ const App = () => {
   };
 
   return (
-    <div className='container'>
-      <h1>Task Manager</h1>
+    <div className="app-container">
+      <div className="task-form-section">
+      <h2>Task Form</h2>
       <TaskForm
         onTaskCreated={handleTaskCreated} // Handle task creation
         taskToEdit={taskToEdit} // Pass the task to edit
         onTaskUpdated={handleTaskUpdated} // Handle task updates
       />
+      </div>
+      <div className="task-list-section">
       <TaskList 
         tasks={tasks} 
         onEdit={handleEditTask} 
         onDelete={handleTaskDeleted}
       />
+      </div>
     </div>
   );
 };

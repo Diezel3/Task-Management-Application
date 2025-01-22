@@ -114,3 +114,47 @@ body {
     font-style: italic;
   }
   
+/* Main container layout */
+.app-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr; /* 1/3 for the form, 2/3 for the list */
+  height: 100vh; /* Full viewport height */
+}
+
+/* Left section (TaskForm) */
+.task-form-section {
+  border-right: 1px solid #f6f2f2; /* Line demarcation */
+  padding: 1rem;
+  overflow-y: auto; /* Enable scrolling for the form, if necessary */
+  background-color: #f9f9f9; /* Subtle background for differentiation */
+}
+
+/* Right section (TaskList) */
+.task-list-section {
+  padding: 1rem;
+  overflow-y: auto; /* Make the task list scrollable */
+}
+
+/* Optional: Adjust the TaskList styling */
+.task-list-section ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .app-container {
+    display: block; /* Stack items vertically */
+  }
+
+  .task-form-section,
+  .task-list-section {
+    width: 100%; /* Full width for both sections */
+    padding: 1rem;
+  }
+
+  .task-form-section {
+    border-right: none; /* Remove the line on mobile */
+  }
+}
