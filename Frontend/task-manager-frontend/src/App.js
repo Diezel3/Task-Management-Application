@@ -10,6 +10,7 @@ import './styles.css';
 const App = () => {
   const [tasks, setTasks] = useState([]); // State to manage tasks
   const [taskToEdit, setTaskToEdit] = useState(null); // State to manage task to edit
+  const formRef = useRef(null); // Ref to scroll to TaskForm when a task is about to be edited
 
   // Fetch tasks from the backend when the component loads
   useEffect(() => {
@@ -31,6 +32,11 @@ const App = () => {
     const confirmEdit = window.confirm(`Are you sure you want to edit this (${task.title}) task?`); // Confirm before editing
     if (!confirmEdit) return;
     setTaskToEdit(task); // Set the selected task for editing by being an object of each task and passing it to the TaskForm component through the taskToEdit prop above
+
+    // Scroll to TaskForm
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth" }); // Smooth scrolling to form
+    }
   };
 
   // Handles task updates
@@ -62,7 +68,7 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <div className="task-form-section">
+      <div className="task-form-section" ref={formRef}>
       <h2>Task Form</h2>
       <TaskForm
         onTaskCreated={handleTaskCreated} // Handle task creation
