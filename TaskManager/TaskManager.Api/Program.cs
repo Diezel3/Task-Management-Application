@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using TaskManager.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services
+// Add CORS policy
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
@@ -12,13 +13,17 @@ builder.Services.AddCors(options =>
                         .AllowAnyHeader());
 });
 
-builder.Services.AddControllers();
 
 // Add services to the container
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Configure Identity services
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -32,8 +37,12 @@ using (var scope = app.Services.CreateScope())
 // Enable CORS
 app.UseCors("AllowFrontend");
 
+// Middleware pipeline
 app.UseDeveloperExceptionPage();
+app.UseAuthentication(); // Enable Authentication middleware
+app.UseAuthorization();  // Enable Authorization middleware
 app.MapControllers();
+
 app.UseMiddleware<TaskManager.Api.Middleware.ExceptionMiddleware>();
 app.Run();
 
