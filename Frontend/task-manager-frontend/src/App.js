@@ -69,19 +69,19 @@ const App = () => {
   return (
     <div className="app-container">
       <div className="task-form-section" ref={formRef}>
-      <h2>Task Form</h2>
-      <TaskForm
-        onTaskCreated={handleTaskCreated} // Handle task creation
-        taskToEdit={taskToEdit} // Pass the task to edit
-        onTaskUpdated={handleTaskUpdated} // Handle task updates
-      />
+        <h2>Task Form</h2>
+        <TaskForm
+          onTaskCreated={handleTaskCreated} // Handle task creation
+          taskToEdit={taskToEdit} // Pass the task to edit
+          onTaskUpdated={handleTaskUpdated} // Handle task updates
+        />
       </div>
       <div className="task-list-section">
-      <TaskList 
-        tasks={tasks} 
-        onEdit={handleEditTask} 
-        onDelete={handleTaskDeleted}
-      />
+        <TaskList 
+          tasks={tasks} 
+          onEdit={handleEditTask} 
+          onDelete={handleTaskDeleted}
+        />
       </div>
     </div>
   );
