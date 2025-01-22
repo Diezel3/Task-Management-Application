@@ -1,11 +1,10 @@
 // Code to manage the task manager frontend. It fetches tasks from the backend, handles task editing, updates, creation, and deletion. It also renders the TaskForm and TaskList components.
 // Basically Handling the active state of the Task Manager
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import TaskForm from './TaskForm';
 import TaskList from './components/TaskList';
 import api from './api/api';
 import './styles.css';
-import React, { useRef } from "react";
 
 
 const App = () => {
