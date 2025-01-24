@@ -5,7 +5,7 @@ namespace TaskManager.Api.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        // Add custom properties here
+        // Custom properties here E.g Profile Picture, etc.
         public required string FullName { get; set; }
     }
 }
