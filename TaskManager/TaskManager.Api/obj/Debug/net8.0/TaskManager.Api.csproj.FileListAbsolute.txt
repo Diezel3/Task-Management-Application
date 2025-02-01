@@ -161,3 +161,4 @@
 /Users/diezel/Downloads/Microsoft Learn/Task Management Application/TaskManager/TaskManager.Api/obj/Debug/net8.0/TaskManager.Api.pdb
 /Users/diezel/Downloads/Microsoft Learn/Task Management Application/TaskManager/TaskManager.Api/obj/Debug/net8.0/TaskManager.Api.genruntimeconfig.cache
 /Users/diezel/Downloads/Microsoft Learn/Task Management Application/TaskManager/TaskManager.Api/obj/Debug/net8.0/ref/TaskManager.Api.dll
+/Users/diezel/Downloads/Microsoft Learn/Task Management Application/TaskManager/TaskManager.Api/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll

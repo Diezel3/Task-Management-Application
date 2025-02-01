@@ -46,6 +46,9 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 // JWT configuration
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+
+var jwtKey = jwtSettings["Key"] ?? throw new InvalidOperationException("JWT Key is missing in the configuration.");
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -61,7 +64,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true, // Ensure the token is signed correctly
         ValidIssuer = jwtSettings["Issuer"], // Expected issuer
         ValidAudience = jwtSettings["Audience"], // Expected audience
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"])) // Signing key
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)) // Signing key
     };
 });
 
