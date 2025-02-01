@@ -19,8 +19,8 @@ namespace TaskManager.Api.Controllers
 
         public AuthController(UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
-            _userManager = userManager;
-            _configuration = configuration;
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         // POST: /Api/Auth/Register
