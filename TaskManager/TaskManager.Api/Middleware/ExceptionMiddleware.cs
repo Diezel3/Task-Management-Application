@@ -38,6 +38,8 @@ namespace TaskManager.Api.Middleware
                 Details = exception.Message
             };
 
+             Console.WriteLine($"Exception: {exception}");
+
             return response.WriteAsync(JsonSerializer.Serialize(errorResponse));
         }
     }

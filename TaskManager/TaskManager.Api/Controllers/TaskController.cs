@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using TaskManager.Api.Data;
 using TaskManager.Api.Model;
 using Microsoft.AspNetCore.Authorization;

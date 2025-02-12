@@ -71,6 +71,22 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = jwtSettings["Audience"], // Expected audience
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)) // Signing key
     };
+
+    // Event for debugging
+    options.Events = new JwtBearerEvents
+    {
+        OnAuthenticationFailed = context =>
+        {
+            var errorMessage = context.Exception.Message;
+            Console.WriteLine($"Authentication Failed: {errorMessage}");
+            return Task.CompletedTask;
+        },
+        OnTokenValidated = context =>
+        {
+            Console.WriteLine("Token Validated Successfully!");
+            return Task.CompletedTask;
+        }
+    };
 });
 
 builder.Services.AddAuthorization();
@@ -85,6 +101,20 @@ builder.Services.AddControllers(config =>
 
 
 var app = builder.Build();
+
+// Add middleware to log Authorization header
+app.Use(async (context, next) =>
+{
+    if (context.Request.Headers.ContainsKey("Authorization"))
+    {
+        Console.WriteLine($"Authorization Header: {context.Request.Headers["Authorization"]}");
+    }
+    else
+    {
+        Console.WriteLine("Authorization Header Missing");
+    }
+    await next();
+});
 
 // Migrate database changes at runtime
 using (var scope = app.Services.CreateScope())
