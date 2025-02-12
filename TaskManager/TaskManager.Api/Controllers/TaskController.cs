@@ -3,12 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using TaskManager.Api.Data;
 using TaskManager.Api.Model;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace TaskManager.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
 
     public class TaskController : ControllerBase
     {
