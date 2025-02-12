@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using TaskManager.Api.Model;
 using TaskManager.Api.Dto;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TaskManager.Api.Controllers
 {
@@ -25,6 +26,7 @@ namespace TaskManager.Api.Controllers
 
         // POST: /Api/Auth/Register
         [HttpPost("Register")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
             if (!ModelState.IsValid)
@@ -50,6 +52,7 @@ namespace TaskManager.Api.Controllers
 
         // POST: /Api/Auth/Login
         [HttpPost("Login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
             if (!ModelState.IsValid)
