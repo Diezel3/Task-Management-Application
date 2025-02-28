@@ -36,7 +36,7 @@ namespace TaskManager.Api.Controllers
 
             var user = new ApplicationUser
             {
-                UserName = registerDto.Username,
+                UserName = registerDto.UserName,
                 Email = registerDto.Email,
             };
 

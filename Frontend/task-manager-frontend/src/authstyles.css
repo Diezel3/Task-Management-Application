@@ -4,17 +4,26 @@
     justify-content: center;
     align-items: center;
     height: 100vh; /* Full screen height */
-    background-color: #f4f4f4;
+    background-color: #ffffff;
 }
 
 /* Styling the form box */
 .auth-form {
+    justify-content: center;
     background: white;
-    padding: 2rem;
-    border-radius: 8px;
+    padding: 3rem;
+    border-radius: 30px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     width: 350px;
-    text-align: center;
+}
+
+.auth-form2 {
+    background: #fff;
+    border: 0px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
 }
 
 /* Style inputs */

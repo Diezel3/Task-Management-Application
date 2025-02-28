@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { registerUser } from './api/api';
+import './authStyles.css';
 
 const Register = () => {
     const [username, setUsername] = React.useState('');
@@ -57,15 +58,15 @@ const Register = () => {
 
         try {
             const response = await registerUser({ 
-                userName: username, 
-                email: email, 
-                password: password 
+                UserName: username, 
+                Email: email, 
+                Password: password 
             });
             alert("User registered successfully!");
         } 
         catch (error) {
-            console.error('Error registering user:', error);
-            alert("Failed to register user. Please try again.");
+            console.error('Error registering user:', error.response ? error.response.data : error.message);
+            alert("Failed to register user: " + (error.response?.data || "Please try again."));
         }
     };
 
@@ -73,7 +74,7 @@ const Register = () => {
         <div className="auth-container">
             <div className="auth-form">
                 <h2>Register</h2>
-                <form onSubmit={handleSubmit}>
+                <form className="auth-form2"onSubmit={handleSubmit}>
                     <div>
                         <label>Username:</label>
                         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
