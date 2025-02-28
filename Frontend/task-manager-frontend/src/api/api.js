@@ -4,9 +4,7 @@ const api = axios.create({
     baseURL: 'http://localhost:5223/api', // Update with backend URL 
 });
 
-export default api;
-
-export const getTasks = () => api.get('/tasks');
+export const getTasks = () => api.get('/task');
 export const getTask = (id) => api.get(`/task/${id}`);
 export const createTask = (taskData) => api.post('/task', taskData);
 export const updateTask = (id, taskData) => api.put(`/task/${id}`, taskData);

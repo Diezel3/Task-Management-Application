@@ -9,8 +9,8 @@ namespace TaskManager.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    // [Authorize]
-    [AllowAnonymous]
+    [Authorize]
+    // [AllowAnonymous]
 
     public class TaskController : ControllerBase
     {
