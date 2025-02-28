@@ -62,7 +62,13 @@ const Register = () => {
                 Email: email, 
                 Password: password 
             });
+
             alert("User registered successfully!");
+
+            setUsername('');
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
         } 
         catch (error) {
             if (Array.isArray(error.response?.data)) {
@@ -73,7 +79,7 @@ const Register = () => {
                 alert("Failed to register user. Please try again.");
               }
         }
-       
+    };
 
     return (
         <div className="auth-container">
