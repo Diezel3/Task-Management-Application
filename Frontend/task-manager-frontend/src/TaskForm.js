@@ -5,7 +5,7 @@
 
 
 import React, { useState, useEffect } from 'react'; // Hooks to manage form local state(default) & effects(when editing a task)
-import api from './api/api'; // Import the Axios instance
+import {createTask, updateTask} from './api/api'; // Import the Axios instance
 
 // Acts as variable to store user input
 const TaskForm = ({ onTaskCreated, taskToEdit, onTaskUpdated }) => {
@@ -51,12 +51,12 @@ const TaskForm = ({ onTaskCreated, taskToEdit, onTaskUpdated }) => {
       if (taskToEdit) {
         // Update an existing task
         const updatedTask = { ...taskToEdit, title, description, dueDate, isComplete }; // Update the task with new values by combining the old task with the new values using the spread operator (...)
-        const response = await api.put(`/task/${taskToEdit.id}`, updatedTask);
+        const response = await updateTask(taskToEdit.id, updatedTask);
         onTaskUpdated(response.data); // Notify parent of the updated task by calling the onTaskUpdated function to change the state of the tasks
       } else {
         // Create a new task
         const newTask = { title, description, dueDate, isComplete };
-        const response = await api.post('/task', newTask);
+        const response = await createTask(newTask);
         onTaskCreated(response.data); // Notify parent of the new task by calling the onTaskCreated function to change the state of the tasks
       }
     } catch (error) {
