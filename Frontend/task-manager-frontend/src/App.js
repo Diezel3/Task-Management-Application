@@ -3,8 +3,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import TaskForm from './TaskForm';
 import TaskList from './components/TaskList';
-import api from './api/api';
+import api, { getTasks } from './api/api';
 import './styles.css';
+import { get } from 'axios';
 
 
 const App = () => {
@@ -16,7 +17,7 @@ const App = () => {
   useEffect(() => {
     async function fetchTasks() {
       try {
-        const response = await api.get('/task');
+        const response = await getTasks();
         setTasks(response.data); // Set tasks fetched from the backend
       } catch (error) {
         console.error('Error fetching tasks:', error);
