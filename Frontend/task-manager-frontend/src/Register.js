@@ -65,8 +65,13 @@ const Register = () => {
             alert("User registered successfully!");
         } 
         catch (error) {
-            console.error('Error registering user:', error.response ? error.response.data : error.message);
-            alert("Failed to register user: " + (error.response?.data || "Please try again."));
+            if (Array.isArray(error.response?.data)) {
+                // Display each error on a new line
+                alert(error.response.data.join("\n"));
+              } 
+              else {
+                alert("Failed to register user. Please try again.");
+              }
         }
     };
 
