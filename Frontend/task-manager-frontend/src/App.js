@@ -3,9 +3,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import TaskForm from './TaskForm';
 import TaskList from './components/TaskList';
-import api, { getTasks } from './api/api';
+import { deleteTask, getTasks } from './api/api';
 import './styles.css';
-import { get } from 'axios';
 
 
 const App = () => {
@@ -17,7 +16,7 @@ const App = () => {
   useEffect(() => {
     async function fetchTasks() {
       try {
-        const response = await getTasks();
+        const response = await getTasks(); // API call to fetch tasks
         setTasks(response.data); // Set tasks fetched from the backend
       } catch (error) {
         console.error('Error fetching tasks:', error);
@@ -60,7 +59,7 @@ const App = () => {
 
     
     try {
-      await api.delete(`/task/${taskId}`); // API call to delete the task
+      await deleteTask(taskId); // API call to delete the task
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId)); // Update state
     } catch (error) {
       console.error('Error deleting task:', error);
