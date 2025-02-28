@@ -73,7 +73,7 @@ const Register = () => {
                 alert("Failed to register user. Please try again.");
               }
         }
-    };
+       
 
     return (
         <div className="auth-container">

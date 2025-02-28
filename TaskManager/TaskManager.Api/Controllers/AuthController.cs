@@ -44,7 +44,28 @@ namespace TaskManager.Api.Controllers
 
             if (!result.Succeeded)
             {
-                return BadRequest(result.Errors);
+                var errorMessages = new List<string>();
+
+                foreach (var error in result.Errors)
+                {
+                    // Specific checks for errors
+                    if (error.Code == "DuplicateUserName")
+                    {
+                        errorMessages.Add($"Username '{registerDto.UserName}' is already taken.");
+                    }
+                    else if (error.Code == "DuplicateEmail")
+                    {
+                        errorMessages.Add($"Email '{registerDto.Email}' is already taken.");
+                    }
+                    else
+                    {
+                        // Default error message
+                        errorMessages.Add(error.Description);
+                    }
+                }
+
+        
+                return BadRequest(errorMessages);
             }
 
             return Ok("User registered successfully");
