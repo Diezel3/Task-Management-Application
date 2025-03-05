@@ -21,11 +21,18 @@ const Login = () => {
 
         try {
             const response = await loginUser({ email, password });
-            console.log(response);
-            alert("Login successful!");
-        } catch (error) {
+    
+            if (response.data.token) { // Ensure token is received
+                localStorage.setItem('token', response.data.token); // Store token
+                alert("Login successful!");
+                console.log("Token stored:", response.data.token);
+            } else {
+                alert("No token received. Please try again.");
+            }
+        } 
+        catch (error) {
             console.error(error);
-            alert("Login failed!");
+            alert("Login failed! Check your credentials.");
         }
     }
 
