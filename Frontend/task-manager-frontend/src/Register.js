@@ -103,6 +103,7 @@ const Register = () => {
                         <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                     </div>
                     <button type="submit">Register</button>
+                    <p>Already have an account? <a href="/login">Login</a></p>
                 </form>
             </div>
         </div>
