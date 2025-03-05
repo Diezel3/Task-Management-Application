@@ -41,13 +41,15 @@ const Login = () => {
 
     return (
         <div className="auth-container">
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-                <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                <button type="submit">Login</button>
-                <p>Don't have an account? <a href="/register">Register</a></p>
-            </form>
+            <div className="auth-form">
+                <h1>Login</h1>
+                <form className="auth-form2" onSubmit={handleSubmit}>
+                    <input type="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <button type="submit">Login</button>
+                    <p>Don't have an account? <a href="/register">Register</a></p>
+                </form>
+            </div>
         </div>
     );
 }
