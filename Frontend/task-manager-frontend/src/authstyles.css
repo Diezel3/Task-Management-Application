@@ -41,6 +41,11 @@
     justify-content: center; 
 }
 
+.register-link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 /* Center the button */
 .auth-form button {
     width: 100%;

@@ -2,7 +2,7 @@ import React from "react";
 import { loginUser } from './api/api';
 import './authStyles.css';
 
-const Login = () => {
+const Login = ({ onLoginSuccess, onSwitchToRegister }) => {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
 
@@ -26,9 +26,8 @@ const Login = () => {
             });
     
             if (response.data.token) { // Ensure token is received
-                localStorage.setItem('token', response.data.token); // Store token
+                onLoginSuccess(response.data.token); // Parent handle token storage
                 alert("Login successful!");
-                console.log("Token stored:", response.data.token);
             } else {
                 alert("No token received. Please try again.");
             }
@@ -47,7 +46,7 @@ const Login = () => {
                     <input type="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                     <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <button type="submit">Login</button>
-                    <p>Don't have an account? <a href="/register">Register</a></p>
+                    <p>Don't have an account? <span className="register-link" onClick={onSwitchToRegister}>Register</span></p>
                 </form>
             </div>
         </div>

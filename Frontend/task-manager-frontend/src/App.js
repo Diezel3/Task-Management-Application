@@ -14,12 +14,16 @@ const App = () => {
   const [tasks, setTasks] = useState([]); // State to manage tasks
   const [taskToEdit, setTaskToEdit] = useState(null); // State to manage task to edit
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Track login state
+  const [currentPage, setCurrentPage] = useState('login'); // Track current page
   const formRef = useRef(null); // Ref to scroll to TaskForm when a task is about to be edited
 
   // Check for token when app loads
   useEffect(() => {
     const token = localStorage.getItem('token');
-    setIsAuthenticated(!!token); // Convert token to boolean (true if exists)
+    if (token) {
+      setIsAuthenticated(true);
+      setCurrentPage('tasks');
+    }
   }, []);
   
   // Fetch tasks from the backend when the component loads
@@ -40,18 +44,24 @@ const App = () => {
   }, [isAuthenticated]); // Fetch tasks when the component loads and when the isAuthenticated state changes
 
 
-  // Handle login success
+  // On successful login, store the token and switch to tasks view
   const handleLoginSuccess = (token) => {
-    localStorage.setItem('token', token); // Store token
-    setIsAuthenticated(true); // Update state
+    localStorage.setItem('token', token);
+    setIsAuthenticated(true);
+    setCurrentPage('tasks'); // Switch to tasks view
   };
 
-  // Logout function
+  // On Logout, remove the token and switch to login view
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Remove token
-    setIsAuthenticated(false); // Reset state
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    setCurrentPage('login'); // Go back to login
   };
 
+  // 5️⃣ Switch between login and register
+  const switchPage = (page) => {
+    setCurrentPage(page);
+  };
 
 
   // This doesn't necessarily edit the task, but it sets the task ready to be edited and the logic is handled in the TaskForm component
@@ -92,6 +102,27 @@ const App = () => {
       console.error('Error deleting task:', error);
     }
   };
+
+
+
+  // Render the appropriate page based on the current page state
+  if (!isAuthenticated) {
+    return (
+      <div className="auth-container">
+        {currentPage === 'login' && (
+          <Login 
+            onLoginSuccess={handleLoginSuccess} 
+            onSwitchToRegister={() => switchPage('register')} 
+          />
+        )}
+        {currentPage === 'register' && (
+          <Register 
+            onSwitchToLogin={() => switchPage('login')} 
+          />
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="page-container">
