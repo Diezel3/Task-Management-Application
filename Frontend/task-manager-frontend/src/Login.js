@@ -3,14 +3,14 @@ import { loginUser } from './api/api';
 import './authStyles.css';
 
 const Login = () => {
-    const [email, setEmail] = React.useState('');
+    const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent browser from refreshing the page
 
-        if (!email.trim()) {
-            alert("Email is required!");
+        if (!username.trim()) {
+            alert("Username is required!");
             return;
         }
 
@@ -20,7 +20,10 @@ const Login = () => {
         }
 
         try {
-            const response = await loginUser({ email, password });
+            const response = await loginUser({ 
+                UserName: username, 
+                Password: password 
+            });
     
             if (response.data.token) { // Ensure token is received
                 localStorage.setItem('token', response.data.token); // Store token
@@ -40,7 +43,7 @@ const Login = () => {
         <div className="auth-container">
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
-                <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input type="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                 <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <button type="submit">Login</button>
             </form>
