@@ -4,6 +4,15 @@ const api = axios.create({
     baseURL: 'http://localhost:5223/api', // Update with backend URL 
 });
 
+// Interceptor to add token to every request
+// api.interceptors.request.use((config) => {
+//     const token = localStorage.getItem('token');
+//     if (token) {
+//       config.headers.Authorization = `Bearer ${token}`;
+//     }
+//     return config;
+//   });
+
 export const getTasks = () => api.get('/task');
 export const getTask = (id) => api.get(`/task/${id}`);
 export const createTask = (taskData) => api.post('/task', taskData);

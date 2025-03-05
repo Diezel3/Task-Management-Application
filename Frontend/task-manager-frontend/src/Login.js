@@ -26,7 +26,7 @@ const Login = ({ onLoginSuccess, onSwitchToRegister }) => {
             });
     
             if (response.data.token) { // Ensure token is received
-                onLoginSuccess(response.data.token); // Parent handle token storage
+                onLoginSuccess(response.data.token, response.data.userName); // Parent handle token storage
                 alert("Login successful!");
             } else {
                 alert("No token received. Please try again.");
@@ -46,7 +46,7 @@ const Login = ({ onLoginSuccess, onSwitchToRegister }) => {
                     <input type="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                     <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <button type="submit">Login</button>
-                    <p>Don't have an account? <span className="register-link" onClick={onSwitchToRegister}>Register</span></p>
+                    <p>Don't have an account? <span className="switch-link" onClick={onSwitchToRegister}>Register</span></p>
                 </form>
             </div>
         </div>

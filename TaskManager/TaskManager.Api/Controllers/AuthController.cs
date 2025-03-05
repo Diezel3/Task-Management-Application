@@ -89,7 +89,12 @@ namespace TaskManager.Api.Controllers
             }
 
             var token = GenerateJwtToken(user);
-            return Ok(new { Token = token });
+
+            return Ok(new 
+            { 
+                Token = token,
+                userName = user.UserName
+            });
         }
 
         private string GenerateJwtToken(ApplicationUser user)

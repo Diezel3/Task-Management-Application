@@ -15,13 +15,16 @@ const App = () => {
   const [taskToEdit, setTaskToEdit] = useState(null); // State to manage task to edit
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Track login state
   const [currentPage, setCurrentPage] = useState('login'); // Track current page
+  const [currentUser, setCurrentUser] = useState('');
   const formRef = useRef(null); // Ref to scroll to TaskForm when a task is about to be edited
 
   // Check for token when app loads
   useEffect(() => {
     const token = localStorage.getItem('token');
+    const savedUserName = localStorage.getItem('username');
     if (token) {
       setIsAuthenticated(true);
+      setCurrentUser(savedUserName || 'User'); // Set the current user
       setCurrentPage('tasks');
     }
   }, []);
@@ -45,16 +48,19 @@ const App = () => {
 
 
   // On successful login, store the token and switch to tasks view
-  const handleLoginSuccess = (token) => {
+  const handleLoginSuccess = (token, userName) => {
     localStorage.setItem('token', token);
+    localStorage.setItem('username', userName);
     setIsAuthenticated(true);
     setCurrentPage('tasks'); // Switch to tasks view
+    setCurrentUser(userName);
   };
 
   // On Logout, remove the token and switch to login view
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
+    setCurrentUser('');
     setCurrentPage('login'); // Go back to login
   };
 
@@ -127,7 +133,7 @@ const App = () => {
   return (
     <div className="page-container">
       <header className="navbar">
-        <span className="user-info">Welcome, User!</span>
+        <span className="user-info">Welcome, {currentUser || 'User'}!</span>
         <button onClick={handleLogout} className="logout-btn">Logout</button>
       </header>
       <div className="app-container">

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { registerUser } from './api/api';
 import './authStyles.css';
 
-const Register = () => {
+const Register = ({ onSwitchToLogin }) => {
     const [username, setUsername] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -64,11 +64,7 @@ const Register = () => {
             });
 
             alert("User registered successfully!");
-
-            setUsername('');
-            setEmail('');
-            setPassword('');
-            setConfirmPassword('');
+            onSwitchToLogin(); // Switch to login after successful registration
         } 
         catch (error) {
             if (Array.isArray(error.response?.data)) {
@@ -103,7 +99,7 @@ const Register = () => {
                         <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                     </div>
                     <button type="submit">Register</button>
-                    <p>Already have an account? <a href="/login">Login</a></p>
+                    <p>Already have an account? <span className="switch-link" onClick={onSwitchToLogin}>Login</span></p>
                 </form>
             </div>
         </div>
