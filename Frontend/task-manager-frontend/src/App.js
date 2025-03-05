@@ -58,6 +58,8 @@ const App = () => {
 
   // On Logout, remove the token and switch to login view
   const handleLogout = () => {
+    const confirmLogout = window.confirm('Are you sure you want to logout?');
+    if (!confirmLogout) return;
     localStorage.removeItem('token');
     setIsAuthenticated(false);
     setCurrentUser('');
