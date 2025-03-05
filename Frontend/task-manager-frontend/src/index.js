@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import './styles.css';
 import Register from './Register';
+import Login from './Login';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

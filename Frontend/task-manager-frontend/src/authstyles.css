@@ -35,6 +35,12 @@
     border-radius: 5px;
 }
 
+.auth-form2 p {
+    font-size: small;
+    display: flex;
+    justify-content: center; 
+}
+
 /* Center the button */
 .auth-form button {
     width: 100%;
