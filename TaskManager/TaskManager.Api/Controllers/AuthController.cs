@@ -34,6 +34,13 @@ namespace TaskManager.Api.Controllers
                 return BadRequest(ModelState);
             }
 
+            if (!string.IsNullOrEmpty(registerDto.UserName))
+            {
+                registerDto.UserName = registerDto.UserName.Substring(0, 1).ToUpper() 
+                                    + registerDto.UserName.Substring(1).ToLower();
+            }
+
+
             var user = new ApplicationUser
             {
                 UserName = registerDto.UserName,
