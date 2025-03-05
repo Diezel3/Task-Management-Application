@@ -69,7 +69,7 @@ body {
     border-radius: 10px;
     padding: 20px;
     margin: 20px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(86, 86, 86, 0.1);
   }
   
   form div {
@@ -115,6 +115,43 @@ body {
   }
   
 /* Main container layout */
+.page-container {
+  display: grid;
+  grid-template-rows: auto 1fr; /* Fixed navbar, remaining for content */
+  height: 100vh; /* Full viewport height */
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+  font-size: 16px;
+  color: #2c3e50;
+  padding: 8px 30px;
+}
+
+.logout-btn {
+  background-color: #ffffff;
+  color: #2c3e50;
+  border: 1px solid #2c3e50;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.logout-btn:hover {
+  background-color: #ffffff;
+  border: 1px solid #2980b9;
+  color: #2980b9;
+}
+
 .app-container {
   display: grid;
   grid-template-columns: 1.2fr 1.8fr; /* 1/3 for the form, 2/3 for the list */
@@ -124,14 +161,16 @@ body {
 /* Left section (TaskForm) */
 .task-form-section {
   border-right: 1px solid #f6f2f2; /* Line demarcation */
-  padding: 1rem;
+  padding: 3rem;
   overflow-y: auto; /* Enable scrolling for the form, if necessary */
   background-color: #f9f9f9; /* Subtle background for differentiation */
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 }
+
 
 /* Right section (TaskList) */
 .task-list-section {
-  padding: 1rem;
+  padding: 3rem;
   overflow-y: auto; /* Make the task list scrollable */
 }
 

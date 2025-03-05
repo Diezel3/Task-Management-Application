@@ -94,39 +94,30 @@ const App = () => {
   };
 
   return (
-    <div className="app-container">
-      {isAuthenticated ? (
-        <>
-          <header className="navbar">
-            <span>Welcome, User!</span>
-            <button onClick={handleLogout}>Logout</button>
-          </header>
-          <div className="task-form-section" ref={formRef}>
-            <h2>Task Form</h2>
-            <TaskForm
-              onTaskCreated={handleTaskCreated} // Pass the function to handle task creation
-              taskToEdit={taskToEdit} // Pass the task to edit
-              onTaskUpdated={handleTaskUpdated} // Pass the function to handle task updates
-            />
-          </div>
-          <div className="task-list-section">
-            <TaskList 
-              tasks={tasks} 
-              onEdit={handleEditTask} 
-              onDelete={handleTaskDeleted}
-            />
-          </div>
-        </>
-      ) : (
-        <div className="auth-container">
-          <h2>Please Login or Register</h2>
-          <Login onLoginSuccess={handleLoginSuccess} />
-          <p>Don't have an account? <Register /></p>
+    <div className="page-container">
+      <header className="navbar">
+        <span className="user-info">Welcome, User!</span>
+        <button onClick={handleLogout} className="logout-btn">Logout</button>
+      </header>
+      <div className="app-container">
+        <div className="task-form-section" ref={formRef}>
+          <h2>Task Form</h2>
+          <TaskForm 
+            onTaskCreated={handleTaskCreated} // Handle task creation
+            taskToEdit={taskToEdit} // Pass the task to edit
+            onTaskUpdated={handleTaskUpdated} // Handle task updates
+          />
         </div>
-      )}
+        <div className="task-list-section">
+          <TaskList 
+            tasks={tasks} 
+            onEdit={handleEditTask} 
+            onDelete={handleTaskDeleted}
+          />
+        </div>
+      </div>
     </div>
   );
 };
-
 
 export default App;
