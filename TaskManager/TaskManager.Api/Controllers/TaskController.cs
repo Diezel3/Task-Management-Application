@@ -21,7 +21,18 @@ namespace TaskManager.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Taskk>>> GetAllTasks([FromServices] AppDbContext dbContext)
         {
-            return Ok(await dbContext.Tasks.ToListAsync());
+            // Get the user ID from the JWT claims
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("Cannot determine user ID from token.");
+            }
+
+            var tasks = await dbContext.Tasks
+                .Where(t => t.OwnerId == userId)
+                .ToListAsync();
+
+            return Ok(tasks);
         }
 
         // POST: /Api/Task
