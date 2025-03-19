@@ -63,7 +63,16 @@ namespace TaskManager.Api.Controllers
 
         public async Task<ActionResult<Taskk>> GetTaskById(int id, [FromServices] AppDbContext dbContext)
         {
-            var task = await dbContext.Tasks.FindAsync(id);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("Cannot determine user ID from token.");
+            }
+
+            var task = await dbContext.Tasks
+                .Where(t => t.OwnerId == userId && t.Id == id)
+                .FirstOrDefaultAsync();
+                
             if (task == null)
             {
                 return NotFound($"Task with ID {id} was not found.");
@@ -80,7 +89,14 @@ namespace TaskManager.Api.Controllers
                 return BadRequest(ModelState);
             }
 
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("Cannot determine user ID from token.");
+            }
+
             var existingTask = await dbContext.Tasks.FindAsync(id);
+            
             if (existingTask == null)
             {
                 return NotFound($"The task with Id {id} was not found.");
