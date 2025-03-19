@@ -7,4 +7,5 @@ public class Taskk
     [StringLength(500, ErrorMessage = "Description cannot exceed 500 characters.")] public string? Description { get; set; }
     public bool IsComplete { get; set; } = false;
     public DateTime DueDate { get; set; }
+    public string? OwnerId { get; set; }
 }
