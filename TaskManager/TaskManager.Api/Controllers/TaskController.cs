@@ -95,8 +95,10 @@ namespace TaskManager.Api.Controllers
                 return Unauthorized("Cannot determine user ID from token.");
             }
 
-            var existingTask = await dbContext.Tasks.FindAsync(id);
-            
+            var existingTask = await dbContext.Tasks
+                .Where(t => t.OwnerId == userId && t.Id == id)
+                .FirstOrDefaultAsync();
+
             if (existingTask == null)
             {
                 return NotFound($"The task with Id {id} was not found.");
