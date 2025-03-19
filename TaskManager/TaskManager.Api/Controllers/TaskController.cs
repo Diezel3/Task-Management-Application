@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TaskManager.Api.Data;
 using TaskManager.Api.Model;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 
 namespace TaskManager.Api.Controllers
@@ -31,6 +32,15 @@ namespace TaskManager.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            // Get the user ID from the JWT claims
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("Cannot determine user ID from token.");
+            }
+
+            newTask.OwnerId = userId;
             
             await dbContext.Tasks.AddAsync(newTask);
             await dbContext.SaveChangesAsync();
