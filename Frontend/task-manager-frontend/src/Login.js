@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import { loginUser } from './api/api';
 import './authStyles.css';
 
 const Login = ({ onLoginSuccess, onSwitchToRegister }) => {
-    const [username, setUsername] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [showPassword, setShowPassword] = React.useState(false);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
 
+    useEffect(() => {
+        const savedUsername = localStorage.getItem('rememberedUsername');
+        if (savedUsername) {
+          setUsername(savedUsername);
+          setRememberMe(true);
+        }
+      }, []);
+      
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent browser from refreshing the page
+
+        if (rememberMe) {
+            localStorage.setItem('rememberedUsername', username);
+          } else {
+            localStorage.removeItem('rememberedUsername');
+          }
 
         if (!username.trim()) {
             alert("Username is required!");
@@ -45,12 +60,13 @@ const Login = ({ onLoginSuccess, onSwitchToRegister }) => {
             <div className="auth-form">
                 <h1>Login</h1>
                 <form className="auth-form2" onSubmit={handleSubmit}>
-                    <input type="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-                    {/* <input type={showPassword ? "text" : "password"} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} /> */}
+                    <input type="username" placeholder="Username" autoComplete="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                  
                     <div className="password-input-wrapper">
                     <input
                         type={showPassword ? "text" : "password"}
                         placeholder="Password"
+                        autoComplete="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="password-input"
@@ -62,6 +78,14 @@ const Login = ({ onLoginSuccess, onSwitchToRegister }) => {
                         {showPassword ? "🙈" : "👁️"}
                     </span>
                     </div>
+                    <label className="remember-me">
+                    <input
+                        type="checkbox"
+                        checked={rememberMe}
+                        onChange={(e) => setRememberMe(e.target.checked)}
+                    />
+                    Remember Me
+                    </label>
                     <p style={{fontSize: '10px', color: '#999', fontStyle: 'italic'}}>Forgot password? <span className="switch-link">Reset</span></p>
                     <button type="submit">Login</button>
                     <p>Don't have an account? <span className="switch-link" onClick={onSwitchToRegister}>Register</span></p>

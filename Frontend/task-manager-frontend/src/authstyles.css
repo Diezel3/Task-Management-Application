@@ -84,6 +84,14 @@
     color: #777;
   }
 
- 
+ .remember-me {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 1px;
+    font-size: small;
+    color: #777;
+    gap: 10px;
+}
   
   
