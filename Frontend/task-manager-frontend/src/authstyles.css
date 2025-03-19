@@ -62,3 +62,28 @@
 .auth-form button:hover {
     background-color: #0056b3;
 }
+
+.password-input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .password-input {
+    width: 100%;
+    padding-right: 40px; /* give space for the icon */
+    box-sizing: border-box;
+  }
+  
+  .toggle-password-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1rem;
+    color: #777;
+  }
+
+ 
+  
+  

@@ -93,6 +93,7 @@ const Register = ({ onSwitchToLogin }) => {
                     <div>
                         <label>Password:</label>
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <div style={{fontSize: '10px', color: '#999', fontStyle: 'italic'}}>Password must contain: 8 characters, 1 uppercase, 1 lowercase, 1 digit, 1 special character</div>
                     </div>
                     <div>
                         <label>Confirm Password:</label>
