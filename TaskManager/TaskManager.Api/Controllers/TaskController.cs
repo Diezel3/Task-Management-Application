@@ -117,15 +117,25 @@ namespace TaskManager.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Taskk>> DeleteTask(int id, [FromServices] AppDbContext dbContext)
         {
-            var existingTask = await dbContext.Tasks.FindAsync(id);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("Cannot determine user ID from token.");
+            }
+
+            var existingTask = await dbContext.Tasks
+                .Where(t => t.OwnerId == userId && t.Id == id)
+                .FirstOrDefaultAsync();
+
             if (existingTask == null)
             {
                 return NotFound($"The task with Id {id} was not found.");
             }
-                dbContext.Tasks.Remove(existingTask);
-                await dbContext.SaveChangesAsync();
 
-                return NoContent();
+            dbContext.Tasks.Remove(existingTask);
+            await dbContext.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }
